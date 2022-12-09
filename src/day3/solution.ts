@@ -4,14 +4,11 @@ import { officialInput, testInput } from './inputs';
 
 // a sack has two compartments, and each compartment has items identified by a number (their "priority")
 type Sack = [ number[], number[] ];
-type SackTriplet = [ Sack, Sack, Sack ];
 
 function parseInput( input: string ): Sack[] {
     return input.split( '\n' ).map( line => {
         const items = line.split( '' ).map( convertLetterToPriority );
-        const compartmentA = items.slice( 0, items.length / 2 );
-        const compartmentB = items.slice( items.length / 2 );
-        return [ compartmentA, compartmentB ];
+        return divideArray( items, items.length / 2 ) as Sack;
     });
 }
 
@@ -27,22 +24,24 @@ function findCommonItem( sack: Sack ): number {
     return intersection( sack[0], sack[1] )[0];
 }
 
-function splitIntoThrees( sacks: Sack[] ): SackTriplet[] {
-    const groupsOfThree = [];
-    for ( let i = 0; i < sacks.length; i += 3 ) {
-        groupsOfThree.push([ sacks[i], sacks[i+1], sacks[i+2] ]);
-    }
-    return groupsOfThree;
+/**
+ * Divides an array into multiple equal parts.
+ * I.e. when dividing into groups of 2, turns [ 1, 2, 3, 4, 5, 6 ] into [ [1, 2], [3, 4], [5, 6] ]
+ */
+function divideArray<T>( arr: T[], groupSize: number ): T[][] {
+    return new Array( arr.length / groupSize ).fill( 0 ).map(
+        ( item, i ) => arr.slice( i * groupSize, i * groupSize + groupSize )
+    );
 }
 
-/** finds the common item in a group of three sacks */
-function findCommonInGroup( triplet: SackTriplet ): number {
-    return intersection( flatten(triplet[0]), flatten(triplet[1]), flatten(triplet[2]) )[0];
+/** finds the single common item in a group of sacks */
+function findCommonInGroup( sackGroup: Sack[] ): number {
+    return intersection( ...sackGroup.map(flatten) )[0];
 }
 
 outputAnswers(
     testInput,
     officialInput,
     ( input: string ) => sum( parseInput(input).map(findCommonItem) ), // function that solves part 1
-    ( input: string ) => sum( splitIntoThrees(parseInput(input)).map(findCommonInGroup) ) // function that solves part 2
+    ( input: string ) => sum( divideArray(parseInput(input), 3).map(findCommonInGroup) ) // function that solves part 2
 );

@@ -4,9 +4,7 @@ import { officialInput, testInput } from './inputs';
 
 /** Takes raw puzzle input and returns a 2D array of numbers */
 function parseInput( input: string ): number[][] {
-    return input.split( '\n\n' ).map(
-        numberList => numberList.split('\n').map( numberString => parseInt(numberString) )
-    );
+    return input.split( '\n\n' ).map( numberList => numberList.split('\n').map(Number) );
 }
 
 /** Finds the total calories carried by the top `n` calorie carriers */
