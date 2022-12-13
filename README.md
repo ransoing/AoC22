@@ -1,5 +1,8 @@
 # AoC22
-[Advent of Code 2022](https://adventofcode.com/2022) solutions in typescript
+
+## [Advent of Code 2022](https://adventofcode.com/2022) solutions in typescript
+
+I'm aiming for solutions that have few lines of code while being reasonably readable.
 
 Set up by installing [nodejs](https://nodejs.org/en/) and running `npm i` in the repo's directory.
 
