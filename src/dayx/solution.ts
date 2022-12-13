@@ -9,6 +9,8 @@ function parseInput( input: string ) {
 outputAnswers(
     testInput,
     officialInput,
-    ( input: string ) => null, // function that solves part 1
-    ( input: string ) => null // function that solves part 2
+     // function that solves part 1
+    ( input: string ) => null,
+     // function that solves part 2
+    ( input: string ) => null
 );

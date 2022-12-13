@@ -16,14 +16,14 @@ function solve( input: string ) {
         line => line.split( '' ).map( l => l.charCodeAt(0) )
     );
     
-    return dijkstra( map, start, end );
+    return bfsRoute( map, start, end );
 }
 
 /**
- * Uses the Dijkstra algorithm to find the shortest path from start to the end. I decided to implement Dijkstra instead of importing one,
- * because I'd never done a breadth-first search before.
+ * Uses a breadth-first search algorithm to find the shortest path from start to the end. I decided to implement this instead of importing
+ * one because I'd never done a breadth-first search before.
  */
-function dijkstra( map: number[][], start: Node, end: Node ) {
+function bfsRoute( map: number[][], start: Node, end: Node ) {
     const height = ( coords: number[] ) => map[coords[0]]?.[coords[1]]; // the height at given coordinates
     const queue: [ Node, number ][] = [ [start, 0] ]; // keeps track of node to check and its distance from the start
     const visited = new Set<string>([ start.toString() ]);
