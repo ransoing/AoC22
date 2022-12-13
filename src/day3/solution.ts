@@ -20,6 +20,17 @@ function parseInput( input: string ): Sack[] {
 outputAnswers(
     testInput,
     officialInput,
-    ( input: string ) => sum( parseInput(input).map( sack => intersection(sack[0], sack[1] )[0] ) ), // function that solves part 1
-    ( input: string ) => sum( chunk(parseInput(input), 3).map( group => intersection(...group.map(flatten))[0] ) ) // function that solves part 2
+    // function that solves part 1
+    ( input: string ) => sum(
+        parseInput( input ).map(
+            sack => intersection( sack[0], sack[1] )[0]
+        )
+    ),
+     // function that solves part 2
+    ( input: string ) => sum(
+        chunk( parseInput(input), 3 )
+        .map(
+            group => intersection( ...group.map(flatten) )[0]
+        )
+    )
 );

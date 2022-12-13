@@ -25,8 +25,10 @@ function rangesOverlap( ranges: number[][] ): boolean {
 outputAnswers(
     testInput,
     officialInput,
+    // function that solves part 1
     ( input: string ) => parseInput( input ).filter(
-        pair => isSubrange(pair[0], pair[1]) || isSubrange(pair[1], pair[0])
-    ).length, // function that solves part 1
-    ( input: string ) => parseInput( input ).filter( pair => rangesOverlap(pair) ).length // function that solves part 2
+        pair => isSubrange( pair[0], pair[1] ) || isSubrange( pair[1], pair[0] )
+    ).length,
+    // function that solves part 2
+    ( input: string ) => parseInput( input ).filter( pair => rangesOverlap(pair) ).length
 );

@@ -48,7 +48,10 @@ function simulate( monkeys: IMonkey[], rounds: number, worryDivisor: number ): I
 function findBusinessLevel( input: string, rounds: number, worryDivisor: number ): number {
     return multiply.apply(
         null,
-        simulate( parseInput(input), rounds, worryDivisor ).map( m => m.inspections ).sort( (a, b) => b - a ).slice( 0, 2 )
+        simulate( parseInput(input), rounds, worryDivisor )
+        .map( m => m.inspections )
+        .sort( (a, b) => b - a )
+        .slice( 0, 2 )
     );
 }
 

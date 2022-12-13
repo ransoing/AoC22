@@ -4,7 +4,9 @@ import { officialInput, testInput } from './inputs';
 
 /** Parse each line as JSON, skipping the blank lines */
 function parseInput( input: string ) {
-    return input.replace( /\n\n/g, '\n' ).split( '\n' ).map( line => JSON.parse(line) );
+    return input.replace( /\n\n/g, '\n' ).split( '\n' ).map(
+        line => JSON.parse( line )
+    );
 }
 
 const ensureArray = item => Array.isArray( item ) ? item : [ item ];
@@ -18,7 +20,10 @@ function compare( a, b ): number {
     a = ensureArray( a );
     b = ensureArray( b );
     // loop over the indexes of the longer array and reduce to either zero or the first nonzero comparison of a and b's elements
-    return range( Math.max(a.length, b.length) ).reduce( (ret, _, i) => ret !== 0 ? ret : compare(a[i], b[i]), 0 );
+    return range( Math.max(a.length, b.length) )
+    .reduce(
+        ( ret, _, i ) => ret !== 0 ? ret : compare( a[i], b[i] ), 0
+    );
 }
 
 outputAnswers(
@@ -27,7 +32,10 @@ outputAnswers(
     // function that solves part 1
     ( input: string ) => sum(
         // compare each pair, and map to either i + 1 (because the puzzle uses 1-indexing) or to 0 based on the result of compare
-        chunk( parseInput(input), 2 ).map( (pair, i) => compare(pair[0], pair[1]) < 0 ? i + 1 : 0 )
+        chunk( parseInput(input), 2 )
+        .map(
+            ( pair, i ) => compare( pair[0], pair[1] ) < 0 ? i + 1 : 0
+        )
     ),
     // function that solves part 2
     ( input: string ) => {

@@ -32,16 +32,20 @@ function parseToFlatDirs( input: string ): INode[] {
 
 /** Returns a flat array of all directories */
 function flattenTree( startNode: INode ): INode[] {
-    return startNode.children.filter( child => child.type === 'directory' ).reduce( (flat, child) => {
-        return flat.concat( ...flattenTree(child) );
-    }, [ startNode ] );
+    return startNode.children.filter(
+        child => child.type === 'directory'
+    ).reduce(
+        ( flat, child ) => flat.concat( ...flattenTree(child) ),
+        [ startNode ]
+    );
 }
 
 /** Recursively adds the size of all files within the directory */
 function getTotalSize( dir: INode ): number {
-    return dir.children.reduce( (total, node) => {
-        return total + ( node.type === 'file' ? node.size : getTotalSize(node) );
-    }, 0 );
+    return dir.children.reduce(
+        ( total, node ) => total + ( node.type === 'file' ? node.size : getTotalSize(node) ),
+        0
+    );
 }
 
 function addDirectory( cd: INode, inputLine: string ): INode {
@@ -67,11 +71,15 @@ function addFile( cd: INode, inputLine: string ) {
 outputAnswers(
     testInput,
     officialInput,
-    ( input: string ) => sum( parseToFlatDirs(input).map(getTotalSize).filter( size => size <= 100000) ), // function that solves part 1
+    // function that solves part 1
+    ( input: string ) => sum(
+        parseToFlatDirs( input ).map( getTotalSize ).filter( size => size <= 100000 )
+    ),
+    // function that solves part 2
     ( input: string ) => {
         const dirSizes = parseToFlatDirs( input ).map( getTotalSize );
         const freeSpace = 70000000 - dirSizes[0];
         const addlSpaceNeeded = 30000000 - freeSpace;
         return Math.min( ...dirSizes.filter(size => size >= addlSpaceNeeded) );
-    } // function that solves part 2
+    }
 );

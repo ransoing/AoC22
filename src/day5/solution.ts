@@ -27,9 +27,13 @@ function parseStacks( lines: string[] ): Stack[] {
     const stacks = new Array( (lines[0].length + 1) / 4 ).fill( 0 ).map( i => [] );
     lines.forEach( line => {
         // match spots where crates are in the string, converting either to an empty string or a single letter
-        const crates = line.match( /.{3}( |$)/g )?.map( crate => crate.trim().replace(/\[|\]/g, '') );
+        const crates = line.match( /.{3}( |$)/g )?.map(
+            crate => crate.trim().replace( /\[|\]/g, '' )
+        );
         // convert from horizontal representation to vertical representation
-        crates.forEach( (crate, i) => crate === '' ? null : stacks[i].unshift(crate) );
+        crates.forEach(
+            ( crate, i ) => crate === '' ? null : stacks[i].unshift( crate )
+        );
     });
     return stacks;
 }
@@ -37,7 +41,9 @@ function parseStacks( lines: string[] ): Stack[] {
 function parseInstructions( lines: string[] ): Instruction[] {
     // extract the numbers from the instruction string and subtract 1 from the stack numbers, because our stacks array is zero-indexed
     return lines.map(
-        line => line.match( /\d+/g )?.map( Number ).map( (num, i) => i === 0 ? num : num - 1 )
+        line => line.match( /\d+/g )?.map( Number ).map(
+            ( num, i ) => i === 0 ? num : num - 1
+        )
     );
 }
 

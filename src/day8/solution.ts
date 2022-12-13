@@ -11,7 +11,9 @@ const allDirections: Direction[] = [ 'up', 'down', 'left', 'right' ];
 
 /** Parses the raw string and returns a 2D array of numbers */
 function parseInput( input: string ): number[][] {
-    return input.split( '\n' ).map( row => row.split('').map(Number) );
+    return input.split( '\n' ).map(
+        row => row.split( '' ).map( Number )
+    );
 }
 
 /** Returns an object containing info about visibility from the tree at [i,j] in the grid, looking in the specified direction */
@@ -31,23 +33,43 @@ function getTreeInfo( grid: number[][], i: number, j: number, direction: Directi
 
 function isVisible( grid: number[][], i: number, j: number ): boolean {
     // a tree is visible if it can see outside the grid in any direction
-    return allDirections.map( dir => getTreeInfo(grid, i, j, dir) ).some( info => info.canSeeOutside );
+    return allDirections.map(
+        dir => getTreeInfo( grid, i, j, dir )
+    ).some(
+        info => info.canSeeOutside
+    );
 }
 
 function getScenicScore( grid: number[][], i: number, j: number ): number {
-    return allDirections.map( dir => getTreeInfo(grid, i, j, dir).viewDistance ).reduce( (total, score) => total * score, 1 );
+    return allDirections.map(
+        dir => getTreeInfo( grid, i, j, dir ).viewDistance
+    ).reduce(
+        ( total, score ) => total * score, 1
+    );
 }
 
 /** converts a grid of tree heights to other values */
 function convertTrees<T>( grid: number[][], convertFunc: (grid: number[][], i: number, j: number) => T ): T[][] {
     return cloneDeep( grid ).map(
-        ( row, i ) => row.map( (tree, j) => convertFunc(grid, i, j) )
+        ( row, i ) => row.map(
+            ( tree, j ) => convertFunc( grid, i, j )
+        )
     );
 }
 
 outputAnswers(
     testInput,
     officialInput,
-    ( input: string ) => convertTrees( parseInput(input), isVisible ).flat().filter( identity ).length, // function that solves part 1
-    ( input: string ) => Math.max( ...convertTrees(parseInput(input), getScenicScore).flat() ) // function that solves part 2
+    // function that solves part 1
+    ( input: string ) => convertTrees(
+        parseInput(input),
+        isVisible
+    ).flat().filter( identity ).length,
+    // function that solves part 2
+    ( input: string ) => Math.max(
+        ...convertTrees(
+            parseInput( input ),
+            getScenicScore
+        ).flat()
+    )
 );

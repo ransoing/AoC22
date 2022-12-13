@@ -32,7 +32,9 @@ function simulate( directions: Direction[], numKnots: number ) {
             const axisDiffs = knots[i - 1].map( (val, j) => val - knots[i][j] );
             const absAxisDiffs = axisDiffs.map( Math.abs );
             if ( absAxisDiffs.some(diff => diff > 1) ) {
-                knots[i] = knots[i].map( (val, j) => val + axisDiffs[j]/(absAxisDiffs[j] || 1) );
+                knots[i] = knots[i].map(
+                    ( val, j ) => val + axisDiffs[j]/( absAxisDiffs[j] || 1 )
+                );
             }
         }
         // Keep track of the movement history of only the very last knot

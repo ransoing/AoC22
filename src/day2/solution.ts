@@ -11,7 +11,9 @@ enum HandShape {
 
 /** Takes raw puzzle input and returns a 2D array of hand shapes */
 function parseInputPart1( input: string ): HandShape[][] {
-    return input.split( '\n' ).map( line => line.split(' ').map( convertToHandShape ) );
+    return input.split( '\n' ).map(
+        line => line.split(' ').map( convertToHandShape )
+    );
 }
 
 function convertToHandShape( letter: string ): HandShape {
@@ -21,7 +23,9 @@ function convertToHandShape( letter: string ): HandShape {
 }
 
 function parseInputPart2( input: string ): HandShape[][] {
-    return input.split( '\n' ).map( line => convertPart2LineToHandShapes(line.split(' ')) );
+    return input.split( '\n' ).map(
+        line => convertPart2LineToHandShapes( line.split(' ') )
+    );
 }
 
 // converts something like ['A', 'X'] to an array of two HandShapes, assuming that X, Y, and Z means lose, draw, and win (respectively)
