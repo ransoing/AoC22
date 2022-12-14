@@ -10,7 +10,7 @@ outputAnswers(
     testInput,
     officialInput,
      // function that solves part 1
-    ( input: string ) => null,
+    ( input: string ) => parseInput( input ),
      // function that solves part 2
     ( input: string ) => null
 );
