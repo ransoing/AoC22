@@ -1,4 +1,4 @@
-import { inRange, isEqual, range, sum, uniq, uniqWith } from 'lodash';
+import { inRange, isEqual, uniqWith } from 'lodash';
 import { outputAnswers } from '../output-answers';
 import { officialInput, testInput } from './inputs';
 
