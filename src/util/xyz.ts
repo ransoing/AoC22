@@ -1,4 +1,4 @@
-import { sum } from "lodash";
+import { isEqual, sum } from "lodash";
 
 /** A class that gives convenient tools for dealing with 2D or 3D coordinates */
 export class XYZ {
@@ -83,5 +83,13 @@ export class XYZ {
             this.y === 0 ? 0 : this.y / Math.abs( this.y ),
             this.z === 0 ? 0 : this.z / Math.abs( this.z )
         );
+    }
+
+    eq( coord: XYZ ): boolean {
+        return coord != null && this.x === coord.x && this.y === coord.y && this.z === coord.z;
+    }
+
+    toString(): string {
+        return `${this.x},${this.y},${this.z}`;
     }
 }
