@@ -4,7 +4,7 @@ import { outputAnswers } from '../output-answers';
 import { officialInput, testInput } from './inputs';
 
 // use trigonometry to define 1-magnitue vectors for each of 8 compass directions
-let [ N, NE, E, SE, S, SW, W, NW ] = range( 8 ).map(
+const [ N, NE, E, SE, S, SW, W, NW ] = range( 8 ).map(
     i => new XYZ( Math.round( Math.sin(i*Math.PI/4) ), -Math.round( Math.cos(i*Math.PI/4) ) )
 );
 const toKey = a => a.toString();
