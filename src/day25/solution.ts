@@ -1,11 +1,15 @@
 import { sum } from 'lodash';
 import { officialInput, testInput } from './inputs';
 
-const snafmap = { '=': -2, '-': -1, '0': 0, '1': 1, '2': 2 };
+const glyphs = [ '=', '-', '0', '1', '2' ]
+const [ base, offset ] = [ 5, 2 ];
 
 /** converts SNAFU to decimal */
 function toDecimal( snafu: string ): number {
-    return snafu.split( '' ).reverse().reduce( (total, symbol, i) => total + 5**i * snafmap[symbol], 0 );
+    return snafu.split( '' ).reverse().reduce(
+        (total, symbol, i) => total + base**i * (glyphs.indexOf(symbol) - offset),
+        0
+    );
 }
 
 /** converts decimal to SNAFU */
@@ -13,12 +17,12 @@ function toSnafu( num: number ): string {
     const digits = [];
     while ( num > 0 ) {
         // SNAFU is base 5, but each digits place is shifted by 2
-        num += 2;
-        digits.unshift( num % 5 );
-        num = Math.floor( num / 5 );
+        num += offset;
+        digits.unshift( num % base );
+        num = Math.floor( num / base );
     }
     // convert regular digits to SNAFU glyphs
-    return digits.map( digit => [ '=', '-', 0, 1, 2 ][digit] ).join( '' );
+    return digits.map( digit => glyphs[digit] ).join( '' );
 }
 
 const solve = (input: string) => toSnafu( sum( input.split('\n').map(toDecimal) ) );
